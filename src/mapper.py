@@ -1,4 +1,5 @@
 import argparse
+import json
 import pickle
 from math import dist
 from statistics import mean
@@ -55,13 +56,12 @@ def find(c):
 
 
 result = [find(c) for c in tqdm(target.items())]
+output = {}
 cnt = 0
 for item in result:
-    if item[1] is None:
+    if item[1] is None:  # unrecognized character
         cnt += 1
-        # print(item)
     else:
-        print(chr(item[-2]), chr(item[-1]))
-print(cnt / len(result) * 100, '%')
-print(result)
-print(min_vals)
+        output[item[-2]] = item[-1]
+with open('{}.json'.format(''.join(args.target.split('.')[:-1])), 'w') as writer:
+    json.dump(output, writer)
