@@ -2,6 +2,7 @@ import argparse
 import pickle
 
 from fontTools.ttLib import TTFont
+from tqdm import tqdm
 
 
 def main():
@@ -38,7 +39,7 @@ def main():
             table[code] = gen_helper(code)
     '''
     unicode = {v: k for k, v in font['cmap'].tables[0].cmap.items()}
-    for glyf in font['glyf'].glyphOrder:
+    for glyf in tqdm(font['glyf'].glyphOrder):
         try:
             coordinates = {
                 coordinates for flag, coordinates in
