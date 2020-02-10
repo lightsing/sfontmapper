@@ -1,4 +1,5 @@
 import argparse
+import json
 import re
 
 import requests
@@ -29,6 +30,15 @@ def main():
         resp = requests.get('https://{}'.format(url), allow_redirects=True)
         with open('{}.woff'.format(fname), 'wb') as writer:
             writer.write(resp.content)
+
+    # create mapping
+    mapping = {}
+    mapping_re = re.compile(r".(\w+){font-family:\s+['\"]([\w-]+)['\"]")
+    for line in buffer:
+        clz, font = mapping_re.findall(line)[0]
+        mapping[clz] = '{}.woff'.format(font)
+    with open('mapping.json', 'w') as writer:
+        json.dump(mapping, writer)
 
 
 if __name__ == '__main__':
