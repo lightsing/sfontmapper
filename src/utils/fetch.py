@@ -36,7 +36,7 @@ def main():
     mapping_re = re.compile(r".(\w+){font-family:\s+['\"]([\w-]+)['\"]")
     for line in buffer:
         clz, font = mapping_re.findall(line)[0]
-        mapping[clz] = '{}.woff'.format(font)
+        mapping[clz] = font
     with open('mapping.json', 'w') as writer:
         json.dump(mapping, writer)
 
