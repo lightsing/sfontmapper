@@ -9,4 +9,5 @@ setup(name='sfontmapper',
       author_email='akase@moumoux.com',
       url='http://git.dev.moumoux.com/ergedd/sfontmapper',
       packages=['sfontmapper'],
+      package_dir={'sfontmapper': 'src'},
       )
